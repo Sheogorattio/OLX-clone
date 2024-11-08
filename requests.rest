@@ -1,0 +1,29 @@
+GET https://127.0.0.1/api/user HTTP/1.1
+
+###
+
+POST https://127.0.0.1/api/user/signup HTTP/1.1
+content-type: application/json
+
+{
+    "id" : "test_id",
+    "email" : "testEmail@gmail.com",
+    "password": "!1234qwer",
+    "phone" : "098336521",
+    "profile_picture" : "/picture/test.jpg",
+    "location_id" : "test_location_id"
+}
+
+###
+
+POST https://127.0.0.1/api/user/logout HTTP/1.1
+
+###
+
+POST https://127.0.0.1/api/user/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email" : "testEmail@gmail.com",
+    "password": "!1234qwer"
+}
