@@ -19,6 +19,7 @@
     "express-mysql-session": "^3.0.3",
     "express-session": "^1.18.1",
     "mysql2": "^3.11.4",
+    "olx-clone": "file:",
     "sequelize": "^6.37.5",
     "validator": "^13.12.0"
   },
