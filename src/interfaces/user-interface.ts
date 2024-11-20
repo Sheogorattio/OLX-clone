@@ -5,4 +5,5 @@ export interface IUser{
     phone :string;
     profile_picture :string;
     location_id :string;
+    role? :string;
 }

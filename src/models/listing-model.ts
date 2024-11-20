@@ -53,7 +53,7 @@ export class Listing extends Model {
     @ForeignKey(()=> Location)
     @Column({
         type: DataType.UUID, 
-        allowNull: false
+        allowNull: true
     })
     locationId!: string;
 
@@ -63,7 +63,7 @@ export class Listing extends Model {
     @ForeignKey(()=> Category)
     @Column({
         type: DataType.UUID,
-        allowNull: false
+        allowNull: true
     })
     categoryId!: Category;
 

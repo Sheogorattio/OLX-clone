@@ -14,3 +14,10 @@ userRoutes.route("/signin")
 
 userRoutes.route("/logout")
 .post(UserController.logout);
+
+userRoutes.route("/password-reset")
+.post(UserController.initializePasswordRecovery);
+
+userRoutes.route("/password-reset/:userId/:token")
+.post(UserController.recoverPassword);
+

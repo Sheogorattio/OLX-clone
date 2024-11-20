@@ -6,12 +6,13 @@ POST https://127.0.0.1/api/user/signup HTTP/1.1
 content-type: application/json
 
 {
-    "id" : "test_id",
-    "email" : "testEmail@gmail.com",
-    "password": "!1234qwer",
-    "phone" : "098336521",
-    "profile_picture" : "/picture/test.jpg",
-    "location_id" : "test_location_id"
+    "id" : "313test_id",
+    "email" : "slepoipios@gmail.com",
+    "password": "12!1234qwer",
+    "phone" : "0298336521",
+    "profile_picture" : "/picture/test21.jpg",
+    "location_id" : "test_location_id",
+    "role" : "admin"
 }
 
 ###
@@ -25,5 +26,53 @@ content-type: application/json
 
 {
     "email" : "testEmail@gmail.com",
-    "password": "!1234qwer"
+    "password": "new_password"
+}
+
+###
+
+POST https://127.0.0.1/api/user/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email" : "2testEmail@gmail.com",
+    "password": "2!1234qwer"
+}
+
+###
+
+GET https://127.0.0.1/api/listing HTTP/1.1
+
+###
+
+POST https://127.0.0.1/api/listing HTTP/1.1
+content-type: application/json
+
+{
+    "id": "listing_test_id",
+    "name" : "test listing",
+    "description" : "test description",
+    "price" : 1000.0,
+    "location_id" : null,
+    "userId" : "test_id",
+    "category_id" : null,
+    "isAvailable" :true
+}
+
+###
+
+POST https://127.0.0.1/api/user/password-reset HTTP/1.1
+content-type: application/json
+
+{
+    "email" : "testEmail@gmail.com"
+}
+
+###
+
+POST https://127.0.0.1/api/user/password-reset/test_id/4b3507dac3fff51993d0aef083e300f104ea1b2163f723a090da026927086584 HTTP/1.1
+content-type: application/json
+
+{
+    "password": "new_password"
 }

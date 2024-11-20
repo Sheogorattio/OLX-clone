@@ -7,13 +7,14 @@ import { userRoutes } from "./routes/user-routes.js";
 import { connection } from "./config/config.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
+import { listingRoutes } from "./routes/listing-routes.js";
 
 
 const PORT = 443;
 const app = express();
 const dirname = path.dirname(process.argv[1]);
 
-connection.sync()
+connection.sync({alter: true})
 .then(() => {
     const options = {
         key: fs.readFileSync(path.join(dirname, '..', 'cert', 'key.pem')),
@@ -49,7 +50,10 @@ connection.sync()
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
     app.use(express.text());
+
     app.use("/api/user", userRoutes);
+    app.use("/api/listing", listingRoutes);
+
     app.route("/").get((req, res) => {
         res.send("Welcome to the server!");
     });
