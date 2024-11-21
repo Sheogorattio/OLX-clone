@@ -6,6 +6,10 @@ export const messageRoutes = Router();
 messageRoutes.route("/")
     .post(MessageController.sendMessage);
 
-// Отримання повідомлень конкретного чату
+// Отримання всіх повідомлень для конкретного чату
 messageRoutes.route("/:chatId")
     .get(MessageController.getChatMessages);
+
+messageRoutes.route("/:chatId/:messageId")
+    .put(MessageController.updateMessage)
+    .delete(MessageController.deleteMessage);

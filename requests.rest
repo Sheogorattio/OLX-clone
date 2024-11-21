@@ -25,7 +25,7 @@ POST https://127.0.0.1/api/user/signin HTTP/1.1
 content-type: application/json
 
 {
-    "email" : "seller@gmail.com",
+    "email" : "newseller@gmail.com",
     "password": "12!1234qwer"
 }
 
@@ -83,5 +83,129 @@ content-type: application/json
 
 {
     "chatId" : "385873aa-0e23-4fe2-8b4b-4773e7cb7b9b",
-    "text" : "1 seller message"
+    "text" : "2 seller message"
 }
+
+###
+
+GET https://127.0.0.1/api/message/385873aa-0e23-4fe2-8b4b-4773e7cb7b9b HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/chat/385873aa-0e23-4fe2-8b4b-4773e7cb7b9b HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/user/buyer_id HTTP/1.1
+
+###
+
+PUT https://127.0.0.1/api/user/seller_id HTTP/1.1
+content-type: application/json
+
+{
+    "email": "newseller@gmail.com",
+    "phone": "0298336522",
+    "profile_picture": "/picture/new_picture.jpg",
+    "location_id": "new_location_id"
+}
+
+###
+
+DELETE https://127.0.0.1/api/user/buyer_id HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/listing HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/image HTTP/1.1
+
+###
+POST https://127.0.0.1/api/image HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "image_id",
+    "url": "/path/to/image.jpg",
+    "listingId": null,
+    "userId": null
+}
+
+###
+POST https://127.0.0.1/api/image HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "image_id1",
+    "url": "/path/to/image1.jpg",
+    "listingId": null,
+    "userId": "seller_id"
+}
+
+###
+
+GET https://127.0.0.1/api/image HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/image/image_id HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/location HTTP/1.1
+
+###
+
+POST https://127.0.0.1/api/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "location_id",
+    "name": "New York"
+}
+
+###
+
+POST https://127.0.0.1/api/location HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "location_id1",
+    "name": "Odesa"
+}
+
+###
+
+GET https://127.0.0.1/api/location/location_id HTTP/1.1
+
+###
+
+GET https://127.0.0.1/api/category HTTP/1.1
+
+###
+
+POST https://127.0.0.1/api/category HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "electronics",
+    "name": "Electronics",
+    "parentId": null
+}
+
+###
+
+POST https://127.0.0.1/api/category HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "smartphones",
+    "name": "Сматртфони",
+    "parentId": "electronics"
+}
+
+###
+
+DELETE https://127.0.0.1/api/category/category_id HTTP/1.1

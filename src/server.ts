@@ -11,6 +11,9 @@ import { listingRoutes } from "./routes/listing-routes.js";
 import { clientRedis } from "./config/redis-config.js";
 import { messageRoutes } from "./routes/message-routes.js";
 import { chatRoutes } from "./routes/chat-routes.js";
+import { imageRoutes } from "./routes/image-routes.js";
+import { categoryRoutes } from "./routes/category-routes.js";
+import { locationRoutes } from "./routes/location-routes.js";
 
 
 const PORT = 443;
@@ -61,6 +64,9 @@ const run = async () => {
     app.use("/api/listing", listingRoutes);
     app.use("/api/message", messageRoutes);
     app.use("/api/chat", chatRoutes);
+    app.use("/api/image", imageRoutes);
+    app.use("/api/category", categoryRoutes);
+    app.use("/api/location", locationRoutes);
 
     https
         .createServer(options, app)

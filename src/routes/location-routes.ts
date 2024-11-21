@@ -4,5 +4,10 @@ import { LocationController } from "../controllers/location-controller.js";
 export const locationRoutes = Router();
 
 locationRoutes.route("/")
-    .get(LocationController.getAll)
-    .post(LocationController.create);
+    .post(LocationController.create)
+    .get(LocationController.getAll);
+
+locationRoutes.route("/:id")
+    .get(LocationController.getById)
+    .put(LocationController.update)
+    .delete(LocationController.delete);

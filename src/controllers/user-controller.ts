@@ -166,4 +166,57 @@ export class UserController  {
         }
     }
 
+    static async getById(req: Request<{ id: string }>, res: Response): Promise<any> {
+        try {
+            const { id } = req.params;
+            console.log("USER ID: " + id);
+            const user = await User.findByPk(id, { include: Listing });
+            if (!user) {
+                return res.status(404).json({ message: "User not found.", data: null });
+            }
+            return res.status(200).json({ message: "User retrieved successfully.", data: user });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to retrieve user.", data: null });
+        }
+    }
+
+    static async update(req: Request<{ id: string }, {}, IUser>, res: Response): Promise<any> {
+        try {
+            const { id } = req.params;
+            const updateData = req.body;
+    
+            if (updateData.password) {
+                const salt = await bcrypt.genSalt(10);
+                updateData.password = await bcrypt.hash(updateData.password, salt);
+            }
+    
+            const user = await User.findByPk(id);
+            if (!user) {
+                return res.status(404).json({ message: "User not found.", data: null });
+            }
+    
+            await user.update(updateData);
+            return res.status(200).json({ message: "User updated successfully.", data: user });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to update user.", data: null });
+        }
+    }
+    
+    static async delete(req: Request<{ id: string }>, res: Response): Promise<any> {
+        try {
+            const { id } = req.params;
+            const user = await User.findByPk(id);
+            if (!user) {
+                return res.status(404).json({ message: "User not found.", data: null });
+            }
+    
+            await user.destroy();
+            return res.status(200).json({ message: "User deleted successfully.", data: null });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to delete user.", data: null });
+        }
+    }
 }

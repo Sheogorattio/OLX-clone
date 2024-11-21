@@ -60,7 +60,7 @@ export class ChatController {
         }
     }
 
-    static async getChat(req: Request, res: Response): Promise<any> {
+    static async getChatById(req: Request, res: Response): Promise<any> {
         const { chatId } = req.params;
 
         try {
@@ -78,6 +78,51 @@ export class ChatController {
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: "Failed to retrieve chat", error });
+        }
+    }
+
+    static async getAllChats(req: Request, res: Response): Promise<any> {
+        try {
+            const chats = await Chat.findAll();
+            return res.status(200).json({ message: "Chats retrieved successfully", data: chats });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to retrieve chats", error });
+        }
+    }
+
+    static async updateChat(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        try {
+            const chat = await Chat.findByPk(id);
+            if (!chat) {
+                return res.status(404).json({ message: "Chat not found" });
+            }
+
+            await chat.update(updateData);
+            return res.status(200).json({ message: "Chat updated successfully", data: chat });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to update chat", error });
+        }
+    }
+
+    static async deleteChat(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+
+        try {
+            const chat = await Chat.findByPk(id);
+            if (!chat) {
+                return res.status(404).json({ message: "Chat not found" });
+            }
+
+            await chat.destroy();
+            return res.status(200).json({ message: "Chat deleted successfully" });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Failed to delete chat", error });
         }
     }
 }

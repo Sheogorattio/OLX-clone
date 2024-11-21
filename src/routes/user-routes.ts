@@ -21,3 +21,8 @@ userRoutes.route("/password-reset")
 userRoutes.route("/password-reset/:userId/:token")
 .post(UserController.recoverPassword);
 
+userRoutes.route("/:id")
+    .get(UserController.getById)
+    .put(UserController.update)
+    .delete(UserController.delete);
+
