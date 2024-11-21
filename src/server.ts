@@ -8,14 +8,21 @@ import { connection } from "./config/config.js";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import { listingRoutes } from "./routes/listing-routes.js";
+import { clientRedis } from "./config/redis-config.js";
+import { messageRoutes } from "./routes/message-routes.js";
+import { chatRoutes } from "./routes/chat-routes.js";
 
 
 const PORT = 443;
 const app = express();
 const dirname = path.dirname(process.argv[1]);
 
-connection.sync({alter: true})
-.then(() => {
+const run = async () => {
+    await connection.sync({alter: true});
+    console.log("DB connection successful");
+    await clientRedis.connect();
+    console.log("Redis connection successful");
+
     const options = {
         key: fs.readFileSync(path.join(dirname, '..', 'cert', 'key.pem')),
         cert: fs.readFileSync(path.join(dirname, '..', 'cert', 'cert.pem')),
@@ -28,7 +35,6 @@ connection.sync({alter: true})
 
     try {
         sessionStore.sync();
-        console.log("Session table created successfully");
     } catch (error) {
         console.error("Failed to create session table:", error);
     }
@@ -53,17 +59,19 @@ connection.sync({alter: true})
 
     app.use("/api/user", userRoutes);
     app.use("/api/listing", listingRoutes);
-
-    app.route("/").get((req, res) => {
-        res.send("Welcome to the server!");
-    });
+    app.use("/api/message", messageRoutes);
+    app.use("/api/chat", chatRoutes);
 
     https
         .createServer(options, app)
         .listen(PORT, () => {
             console.log("Server is running on https://127.0.0.1");
         });
-})
-.catch((error) => {
-    console.error("Error connecting to database:", error);
-});
+}
+
+try{
+    run();
+}
+catch (error) {
+    console.error("Error running server:", error);
+}

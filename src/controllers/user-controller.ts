@@ -8,6 +8,7 @@ import { Token } from "../models/token-model.js";
 import crypto from "crypto"
 import "dotenv/config"
 import nodemailer from "nodemailer"
+import { clientRedis } from "../config/redis-config.js";
 
 export class UserController  {
     static async create(req:Request<{},{},IUser>, res:Response, next:NextFunction):Promise<any>{
@@ -36,8 +37,14 @@ export class UserController  {
     }
 
     static async getAll(req:Request, res:Response):Promise<any>{
+        const userFromRedis = await clientRedis.get("users");
+        if(userFromRedis?.length!>3){
+            console.log("Reading drom Redis...");
+            return res.status(200).json(JSON.parse(userFromRedis!))
+        }
         const users = await User.findAll({include : Listing});
         if(users){
+            await clientRedis.set("users", JSON.stringify(users),{EX:30});
             return res.status(200).json({message : "Users were retrieved successfully.", data : users});
         }
         else{
