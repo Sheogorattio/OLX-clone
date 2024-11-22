@@ -10,5 +10,5 @@ categoryRoutes.route("/")
 
 categoryRoutes.route("/:id")
     .get(CategoryController.getById)
-    .put(CategoryController.update)
+    .patch(CategoryController.update)
     .delete(CategoryController.delete);

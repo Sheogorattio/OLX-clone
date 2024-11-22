@@ -10,5 +10,5 @@ imageRoutes.route("/")
 
 imageRoutes.route("/:id")
     .get(ImageController.getById)
-    .put(ImageController.update)
+    .patch(ImageController.update)
     .delete(ImageController.delete);

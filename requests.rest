@@ -39,14 +39,14 @@ POST https://127.0.0.1/api/listing HTTP/1.1
 content-type: application/json
 
 {
-    "id": "seller_listing_id",
     "name" : "test listing",
     "description" : "test description",
     "price" : 1000.0,
     "location_id" : null,
     "userId" : "seller_id",
     "category_id" : null,
-    "isAvailable" :true
+    "isAvailable" :true,
+    "pictures": ["/pic1.jpg", "/pic2.jpg", "/pic3.jpg"]
 }
 
 ###

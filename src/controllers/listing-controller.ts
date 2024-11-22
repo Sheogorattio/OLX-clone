@@ -2,11 +2,31 @@ import { IListing } from "../interfaces/listing-interface.js";
 import { Listing } from "../models/listing-model.js";
 import {Request, Response, NextFunction} from "express";
 import { User } from "../models/user-model.js";
+import { randomUUID } from "node:crypto";
+import { IImage } from "../interfaces/image-interface.js";
+import { Image } from "../models/image-model.js";
 
 export class ListingController {
-    static async createListing(req: Request, res: Response): Promise<any> {
+    static async createListing(req: Request<{},{},IListing>, res: Response): Promise<any> {
         try {
-            const listing = await Listing.create(req.body);
+            const id = randomUUID();
+            let listingParams = {id, ...req.body};
+            const listing = await Listing.create(listingParams);
+
+            //створення зображень, прикрыплених до оголощення
+            if(listingParams.pictures != null){
+                console.log(listingParams.pictures[1]);
+                listingParams.pictures.forEach(async element => {
+                    console.log("element "+element);
+                    const picId = randomUUID();
+                    const pictureParams :IImage = {
+                        listingId:listing.id,
+                        url:element
+                    };
+
+                    const picture = await Image.create({"id" : picId, ...pictureParams});                
+                });
+            }
             return res.status(201).json({ message: "Listing created successfully", data: listing });
         } catch (error) {
             console.error(error);
@@ -24,7 +44,7 @@ export class ListingController {
         }
     }
 
-    static async getListingById(req: Request, res: Response): Promise<any> {
+    static async getListingById(req: Request<{id:string}>, res: Response): Promise<any> {
         const { id } = req.params;
         try {
             const listing = await Listing.findByPk(id);
@@ -38,7 +58,7 @@ export class ListingController {
         }
     }
 
-    static async updateListing(req: Request, res: Response): Promise<any> {
+    static async updateListing(req: Request<{id:string}>, res: Response): Promise<any> {
         const { id } = req.params;
         const updateData = req.body;
 
@@ -56,7 +76,7 @@ export class ListingController {
         }
     }
 
-    static async deleteListing(req: Request, res: Response): Promise<any> {
+    static async deleteListing(req: Request<{id:string}>, res: Response): Promise<any> {
         const { id } = req.params;
 
         try {

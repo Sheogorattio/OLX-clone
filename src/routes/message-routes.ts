@@ -11,5 +11,5 @@ messageRoutes.route("/:chatId")
     .get(MessageController.getChatMessages);
 
 messageRoutes.route("/:chatId/:messageId")
-    .put(MessageController.updateMessage)
+    .patch(MessageController.updateMessage)
     .delete(MessageController.deleteMessage);

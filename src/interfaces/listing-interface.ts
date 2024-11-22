@@ -1,5 +1,4 @@
 export interface IListing{
-    id: string;
     name :string;
     description?: string;
     price :number;
@@ -7,4 +6,5 @@ export interface IListing{
     userId :string;
     locationId? :string;
     categoryId? :string;
+    pictures?: string[];
 }

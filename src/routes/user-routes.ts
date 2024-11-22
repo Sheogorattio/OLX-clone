@@ -23,6 +23,6 @@ userRoutes.route("/password-reset/:userId/:token")
 
 userRoutes.route("/:id")
     .get(UserController.getById)
-    .put(UserController.update)
+    .patch(UserController.update)
     .delete(UserController.delete);
 

@@ -9,5 +9,5 @@ locationRoutes.route("/")
 
 locationRoutes.route("/:id")
     .get(LocationController.getById)
-    .put(LocationController.update)
+    .patch(LocationController.update)
     .delete(LocationController.delete);
