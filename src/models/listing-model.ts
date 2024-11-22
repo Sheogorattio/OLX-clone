@@ -65,7 +65,7 @@ export class Listing extends Model {
         type: DataType.UUID,
         allowNull: true
     })
-    categoryId!: Category;
+    categoryId!: string;
 
     @BelongsTo(()=> Category)
     category!: Category;
