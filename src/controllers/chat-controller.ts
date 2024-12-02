@@ -44,7 +44,7 @@ export class ChatController {
                     [Op.or]: [{ buyerId: userId }, { sellerId: userId }],
                 },
                 include: [
-                    { model: Listing, attributes: ["id", "title", "price"] },
+                    { model: Listing, attributes: ["id", "name", "price"] },
                     { model: User, as: "users", attributes: ["id", "name", "profilePictureId"] },
                 ],
             });

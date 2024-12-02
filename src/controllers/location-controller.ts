@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Location } from "../models/location-model.js";
+import { randomUUID } from "crypto";
 
 export class LocationController {
     static async create(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            const location = await Location.create(req.body);
+            const location = await Location.create({"id": randomUUID(), ...req.body});
             return res.status(201).json(location);
         } catch (error) {
             console.error(error);

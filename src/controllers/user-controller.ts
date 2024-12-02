@@ -9,11 +9,13 @@ import crypto from "crypto"
 import "dotenv/config"
 import nodemailer from "nodemailer"
 import { clientRedis } from "../config/redis-config.js";
+import {randomUUID} from "crypto"
 
 export class UserController  {
     static async create(req:Request<{},{},IUser>, res:Response, next:NextFunction):Promise<any>{
         try{
             const user = {...req.body};
+            user.id = randomUUID();
             const reExp = new RegExp('^(?=.*\\w)(?=.*\\W)(?=.*\\d).{8,}');
             if(user && 
                 validator.isEmail(user.email) &&
@@ -35,6 +37,23 @@ export class UserController  {
             return res.status(500).json({message : "Failed to create user.", data : null});
         }
     }
+
+    // static async getByEmail(req:Request, res:Response):Promise<any>{
+    //     try{
+    //         const email = req.params.email;
+    //         const user = await User.findOne({where : {email : email}});
+    //         if(user){
+    //             return res.status(200).json({message : "User found", data : user});
+    //         }
+    //         else{
+    //             return res.status(404).json({message : "User not found", data : null});
+    //         }
+    //     }
+    //     catch(error:any){
+    //         return res.status(500).json({message : "Failed to get user by email.", data: error.message});
+
+    //     }
+    // }
 
     static async getAll(req:Request, res:Response):Promise<any>{
         const userFromRedis = await clientRedis.get("users");

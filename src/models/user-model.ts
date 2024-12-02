@@ -31,6 +31,7 @@ export class User extends Model<IUser>{
 
     @Column({
         type: DataType.STRING(30),  
+        unique: true,
     })
     email! :string;
 

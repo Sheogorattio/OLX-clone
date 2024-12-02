@@ -15,9 +15,7 @@ export class ListingController {
             let listingParams = {id, ...req.body};
             const listing = await Listing.create(listingParams);
 
-            //створення зображень, прикрыплених до оголощення
             if(listingParams.pictures != null){
-                console.log(listingParams.pictures[1]);
                 listingParams.pictures.forEach(async element => {
                     console.log("element "+element);
                     const picId = randomUUID();

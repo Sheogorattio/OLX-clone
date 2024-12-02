@@ -2,11 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { Image } from "../models/image-model.js";
 import { Listing } from "../models/listing-model.js";
 import { User } from "../models/user-model.js";
+import { randomUUID } from "crypto";
 
 export class ImageController {
     static async create(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            const image = await Image.create(req.body);
+            const image = await Image.create({"id": randomUUID(), ...req.body});
             return res.status(201).json(image);
         } catch (error) {
             console.error(error);

@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { Category } from "../models/category-model.js";
+import { randomUUID } from "crypto";
 
 export class CategoryController {
     static async create(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            const category = await Category.create(req.body);
-            return res.status(201).json(category);
+            const category = {"id": randomUUID(), ...req.body};
+            return res.status(201).json(await Category.create(category));
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: "Failed to create category" });
