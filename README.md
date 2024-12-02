@@ -23,11 +23,11 @@ This project is a RESTful API built with **Express** and **Sequelize** for manag
    git clone <repository_url>
 
 2. Set up environment variables: Create a .env file in the root directory and add the following variables:
-    SECRET_KEY=<your_secret_key>
-    DB_HOST=<your_db_host>
-    DB_USER=<your_db_user>
-    DB_PASS=<your_db_password>
-    DB_NAME=<your_db_name>
+    -SECRET_KEY=<your_secret_key>
+    -DB_HOST=<your_db_host>
+    -DB_USER=<your_db_user>
+    -DB_PASS=<your_db_password>
+    -DB_NAME=<your_db_name>
 
 3. ```bash
     tsc -w
@@ -91,7 +91,7 @@ The server will run at: https://127.0.0.1:443.
 
 - **Backend**: Node.js, Express.js, Sequelize ORM
 - **Database**: MySQL
-- **Session Storage**: Redis
+- **Cache Storage**: Redis
 - **Session Management**: `express-session` with Sequelize store
 - **Security**: HTTPS, environment variables, session management
 
