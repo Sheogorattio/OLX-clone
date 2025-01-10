@@ -230,7 +230,9 @@ export class UserController  {
             if (!user) {
                 return res.status(404).json({ message: "User not found.", data: null });
             }
-    
+            if(req.session.user.role !== "admin"){
+                return res.status(403).json({ message: "Forbidden.", data: null });
+            }
             await user.destroy();
             return res.status(200).json({ message: "User deleted successfully.", data: null });
         } catch (error) {
